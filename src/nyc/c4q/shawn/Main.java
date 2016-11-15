@@ -1,37 +1,33 @@
 package nyc.c4q.shawn;
 
-import java.lang.reflect.Array;
-
 public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        int[] myArr = {0,1,4,7,10,13};
+        int[] myArr = {1,4,7,10,13,16,19,22,25,28,31};
+        int target = 19;
 
-
-        System.out.println(binarySearch(myArr, 10));
+        System.out.println(iteratingBinarySaerch(myArr, target));
+        System.out.println("Size of array: " + myArr.length);
     }
 
-    public static int binarySearch(int[] inputArr, int target) {
-        int idxOfMin = 0;
-        int idxOfMax = inputArr.length - 1;
-        while (inputArr[idxOfMin] != target && inputArr[idxOfMax] != target) {
-//            if(target == inputArr[idxOfMin]){
-//                return idxOfMin;
-//            }else if (target == inputArr[idxOfMax]){
-//                return idxOfMax;
-//            }
+    public static int iteratingBinarySaerch(int[] inputArr, int target) {
+        int maxIdx = inputArr.length-1;
+        int minIdx = 0;
+        while (minIdx<maxIdx) {
+            int temp = (maxIdx + minIdx) / 2;
 
-            int result = ((idxOfMax - idxOfMin) / 2);
-            if (target < inputArr[idxOfMax - idxOfMin]) {
-                idxOfMin = idxOfMin + result;
-            } else if (target > inputArr[(idxOfMax - idxOfMin)]) {
-                idxOfMax = idxOfMax - result;
-            } else if (target == inputArr[(idxOfMax - idxOfMin)]) {
-                System.out.println("BLAH");
+            if (target > inputArr[temp]) {
+                minIdx = temp + 1;
+                System.out.println("Lower bound: " + minIdx);
+            } else if (target < inputArr[temp]){
+                maxIdx = temp - 1;
+                System.out.println("Upper bound: " + maxIdx);
+            }else {
+                System.out.println("Value: " + target + " was found at index: " + temp);
+                return temp;
             }
         }
-        System.out.println("Index : " + idxOfMin + " " + inputArr[idxOfMin] + " , should be equal to  " + target);
-        return idxOfMin;
+    return minIdx;
     }
 }
